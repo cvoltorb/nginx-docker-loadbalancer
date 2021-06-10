@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+    backend1:
+        image: nginx
+    backend2:
+        image: nginx
+    backend3:
+        image: nginx
+    loadbalancer:
+        image: nginx
+        volumes:
+            - "./nginx.conf:/etc/nginx/nginx.conf"
+        depends_on:
+            - backend1
+            - backend2
+            - backend3
+        ports:
+            - '8080:8080'
+    api:
+        build:
+            context: .
+            dockerfile: docker/node/Dockerfile
+        environment:
+            NODE_ENV: production
+        restart: always
+volumes:
+    backend:
