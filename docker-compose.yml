@@ -1,5 +1,7 @@
 version: '3.4'
 
+# Описываем какие сервисы будем запускать.
+# Тут мы запускаем три бэкенд сервера с nginx
 services:
     backend1:
         image: nginx
@@ -9,20 +11,29 @@ services:
         image: nginx
     loadbalancer:
         image: nginx
+        # Прописываем путь для копирования нашего nginx конфига
+        # в контейнеры
         volumes:
             - "./nginx.conf:/etc/nginx/nginx.conf"
+        # Прописываем зависимости
+        # (стандарт - прописываем имена сервисов, которые запустили в начале)
         depends_on:
             - backend1
             - backend2
             - backend3
+        # Указываем нужные порты
         ports:
             - '8080:8080'
+    # Параметры запуска сервиса с апи
     api:
         build:
             context: .
+            # Указываем путь к dockerfile
             dockerfile: docker/node/Dockerfile
+        # Указываем параметры для Node
         environment:
             NODE_ENV: production
+        # Это для работы серверов в фоне
         restart: always
 volumes:
     backend:
