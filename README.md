@@ -9,9 +9,6 @@ docker-compose run
 
 
 Шаги:
-	(Считаем, что наша система - Linux)
-
-	основная инфа здесь - https://badcode.ru/balansirovshchik-naghruzki-nginx-s-ispolzovaniiem-docker/amp/
 
 1. Установка Docker
 	https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
